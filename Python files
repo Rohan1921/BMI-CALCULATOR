@@ -1,0 +1,37 @@
+from tkinter import *
+master = Tk ()
+
+menu = Menu(master)
+master.config(menu=menu)
+homemenu=Menu(menu)
+menu.add_cascade(label='Home',menu=homemenu)
+homemenu.add_command(label='New Entry')
+homemenu.add_command(label='Changes in Form')
+homemenu.add_command(label='My Profile')
+homemenu.add_command(label='New Updates')
+
+aboutmenu=Menu(menu)
+menu.add_cascade(label='About Us',menu=aboutmenu)
+aboutmenu.add_command(label='Sports Updates')
+aboutmenu.add_command(label='Fields')
+aboutmenu.add_command(label='Entry Criteria')
+
+Label(master, text='Sports Registration Form').grid(row=0,sticky=N)
+Label(master, text='First Name').grid(row=1,sticky=W)
+Label(master, text='Last Name').grid(row=2,sticky=W)
+e1=Entry(master)
+e2=Entry(master)
+e1.grid(row=1, column=1)
+e2.grid(row=2, column=1)
+Label(master, text='Select Event').grid(row=3,sticky=N)
+var1 = IntVar()
+Checkbutton(master,text='100 mts',variable=var1).grid(row=4,sticky=W)
+var2 = IntVar()
+Checkbutton(master,text='800 mts',variable=var2).grid(row=5,sticky=W)
+var3 = IntVar()
+Checkbutton(master,text='Long jump',variable=var3).grid(row=6,sticky=W)
+def Submit():
+    messagebox.showinfo("Completed","Registered the Candidate")
+from tkinter import messagebox
+B=Button(master,text="Submit the Entry",command=Submit).grid(row=7,sticky=W)
+master.mainloop()
