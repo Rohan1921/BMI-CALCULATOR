@@ -1,0 +1,66 @@
+from tkinter import *
+
+# main code (make no changes upto line number 9)
+master = Tk()
+master.configure(bg="#5d5d81")
+master.geometry("900x600")  # syntax:- width x height // this will set default width and height // you can later change that by dragging
+master.minsize(900, 600)
+master.maxsize(900, 600)
+master.title("Body Mass Index Calculator")
+
+# main frame
+f1 = Frame(master, bg="#3b3355", borderwidth=10, relief=FLAT)  # FLAT, GROOVE, RAISED, RIDGE, SOLID, SUNKEN
+f1.pack(side=TOP, fill=X, pady=70, padx=70)
+
+heading = Label(f1, text="BMI Calculator", fg="#fefcfd", font="montserrat 30 bold", bg="#3b3355")  # 3b3355
+heading.pack(side=TOP, fill=X, padx=40, pady=40)
+
+f2 = Frame(f1, bg="#3b3355")
+f2.pack(side=TOP, fill=X, padx=40)
+
+f3 = Frame(f2, bg="#3b3355")
+f3.pack(side=LEFT, fill=Y, padx=20)
+
+f4 = Frame(f2, bg="#3b3355")
+f4.pack(side=RIGHT, fill=Y, padx=20)
+
+height = Label(f3, text="Enter the height: -", fg="#bfcde0", font="montserrat 15", bg="#3b3355")
+height.pack(side=TOP, padx=40, pady=10, anchor=NW)
+
+weight = Label(f3, text="Enter the weight: -", fg="#bfcde0", font="montserrat 15", bg="#3b3355")
+weight.pack(side=TOP, padx=40, pady=10, anchor=NW)
+
+heightvar = IntVar()
+height_entry = Entry(f4, bg="#bfcde0", textvariable=heightvar, fg="black", width=40)
+height_entry.pack(side=TOP, anchor=NE, ipady=7, pady=10)
+
+weightvar = IntVar()
+weight_entry = Entry(f4, bg="#bfcde0", textvariable=weightvar, fg="black", width=40)
+weight_entry.pack(side=TOP, anchor=SE, ipady=7, pady=10)
+
+
+# def answer(a, b):
+#     bmi = a / (b**2)
+#     Label(f4, text="Your BMI is"+str(bmi), fg="white", bg="black")
+
+
+f5 = Frame(f3, bg="#3b3355")
+f5.pack(side=BOTTOM, anchor=S, pady=20, fill=X)
+btn = Button(f5, text="Calculate BMI", font="montserrat 12 bold", bg="#202030", fg="white", borderwidth=2, relief=FLAT)
+btn.pack(side=TOP, anchor=S, pady=20, ipadx=30, ipady=10)
+
+
+master.mainloop()
+
+integer_height = heightvar.get()
+integer_weight = weightvar.get()
+
+print(f"Your height is {integer_height} cm.")
+print(type(integer_height))
+
+
+print(f"Your weight is {integer_weight} kg.")
+print(type(integer_weight))
+
+bmi = integer_weight / ((integer_height/100)**2)
+print(f"Your BMI is {bmi}.")
