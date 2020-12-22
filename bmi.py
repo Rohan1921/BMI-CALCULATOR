@@ -1,3 +1,4 @@
+# keep line 1 to line 10 same.
 from tkinter import *
 
 master = Tk()
