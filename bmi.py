@@ -4,7 +4,7 @@ master = Tk()
 
 # configuring the main window
 # master.configure(bg="#5d5d81")
-bg = PhotoImage(file = "D:\Python Projects\\assets\\bmifitness4.png")
+bg = PhotoImage(file = "https://github.com/Rohan1921/BMI-CALCULATOR/blob/Technovateblog/assets/bmifitness4.png")
 label1 = Label(master, image=bg)
 label1.place(x=-2.5, y=-2.5)
 # canvas = Canvas(master, width=550, height=900)
