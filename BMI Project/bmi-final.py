@@ -149,19 +149,28 @@ def register_user():
   
   # file = askopenfile(mode='a', filetypes=[('Text Files', '*.txt')])
   file1 = 'credents.txt'
-  file=open(file1, "a")
-  file.write("\n"+username_info_hash_done+"\n")
-  # file.write("\n"+username_info+"\n")
-  file.write(password_info_hash_done)
-  # file.write(password_info)
-  file.close()
+  file=open(file1, "r")
+  verifysame = file.read().splitlines()
+  if username_info_hash_done in verifysame:
+    messagebox.showwarning("Warning", "Username already registered.")
+    file.close()
+  else:
+    file=open(file1, "a")
+    file.write("\n"+username_info_hash_done+"\n")
+    # file.write("\n"+username_info+"\n")
+    file.write(password_info_hash_done)
+    print('hello')
+    # file.write(password_info)
+    file.close()
+    messagebox.showinfo('Registered', message="Your registration was successful.")
 
   username_entry.delete(0, END)
   password_entry.delete(0, END)
+  file.close()
 
-  Label(screen1, text = "Registration Sucess", fg = "green" ,font = ("calibri", 11)).pack()
+  # Label(screen1, text = "Registration Sucess", fg = "green" ,font = ("calibri", 11)).pack()
 
-  messagebox.showinfo('Registered', message="Your registration was successful.")
+  # messagebox.showinfo('Registered', message="Your registration was successful.")
   screen1.destroy()
 
 def login_verify():
@@ -180,6 +189,8 @@ def login_verify():
 
   
   # file = askopenfile(mode='r', filetypes=[('Text Files', '*.txt')])
+  # path = "D:/Python Projects"
+  # list_of_files = os.listdir('d:\\Python Projects')
   list_of_files = os.listdir()
   # print(list_of_files)
   file1='credents.txt'
