@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.filedialog import askopenfile
 from tkinter import messagebox
 from time import strftime
+import hashlib
 import webbrowser
 import os
 
@@ -138,9 +139,21 @@ def register_user():
   
   username_info = username.get()
   password_info = password.get()
-  file = askopenfile(mode='a', filetypes=[('Text Files', '*.txt')])
-  file.write("\n"+username_info+"\n")
-  file.write(password_info)
+
+  username_info_hash = hashlib.sha256(username_info.encode())
+  username_info_hash_done = username_info_hash.hexdigest()
+
+  password_info_hash = hashlib.sha256(password_info.encode())
+  password_info_hash_done = password_info_hash.hexdigest()
+
+  
+  # file = askopenfile(mode='a', filetypes=[('Text Files', '*.txt')])
+  file1 = 'credents.txt'
+  file=open(file1, "a")
+  file.write("\n"+username_info_hash_done+"\n")
+  # file.write("\n"+username_info+"\n")
+  file.write(password_info_hash_done)
+  # file.write(password_info)
   file.close()
 
   username_entry.delete(0, END)
@@ -155,22 +168,37 @@ def login_verify():
   
   username1 = username_verify.get()
   password1 = password_verify.get()
+
+  verify_user_hash = hashlib.sha256(username1.encode())
+  verify_user_hash_done = verify_user_hash.hexdigest()
+
+  verify_pwd_hash = hashlib.sha256(password1.encode())
+  verify_pwd_hash_done = verify_pwd_hash.hexdigest()
+
   username_entry1.delete(0, END)
   password_entry1.delete(0, END)
 
   
-  file = askopenfile(mode='r', filetypes=[('Text Files', '*.txt')])
-  verifypwd = file.read().splitlines()
-  if username1 in verifypwd:
-    if password1 in verifypwd:
-      after_login()
-      file.close()
+  # file = askopenfile(mode='r', filetypes=[('Text Files', '*.txt')])
+  list_of_files = os.listdir()
+  # print(list_of_files)
+  file1='credents.txt'
+  # file=open(file1, "r")
+  if file1 in list_of_files:
+    file=open(file1, "r")
+    verifypwd = file.read().splitlines()
+    if verify_user_hash_done in verifypwd:
+      if verify_pwd_hash_done in verifypwd:
+        after_login()
+        file.close()
+      else:
+        password_not_recognised()
+        file.close()
     else:
-      password_not_recognised()
+      user_not_found()
       file.close()
   else:
-    user_not_found()
-    file.close()
+    print("file not found")
 
   
   
@@ -192,7 +220,7 @@ def register():
   username = StringVar()
   password = StringVar()
 
-  Label(screen1, text = "Please enter your details", font="montserrat 20 bold", bg="#191919", fg="#fefcfd").pack(pady=30)
+  Label(screen1, text = "Please enter your details to register", font="montserrat 20 bold", bg="#191919", fg="#fefcfd").pack(pady=30)
   
   Label(screen1, text = "Username * ", font="montserrat 15", fg="#fefcfd", bg="#191919").pack(pady=10)
   
@@ -227,7 +255,7 @@ def login():
   screen2.maxsize(900, 550)
   screen2.configure(bg="#191919")
   
-  Label(screen2, text = "Please enter your details", font="montserrat 20 bold", bg="#191919", fg="#fefcfd").pack(pady=30)
+  Label(screen2, text = "Please enter your details to login", font="montserrat 20 bold", bg="#191919", fg="#fefcfd").pack(pady=30)
   
 
   global username_verify
