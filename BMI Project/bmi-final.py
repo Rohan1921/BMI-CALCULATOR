@@ -6,14 +6,14 @@ import hashlib
 import webbrowser
 import os
 
-def delete2():
-  screen3.destroy()
+# def delete2():
+#   screen3.destroy()
 
-def delete3():
-  screen4.destroy()
+# def delete3():
+#   screen4.destroy()
 
-def delete4():
-  screen5.destroy()
+# def delete4():
+#   screen5.destroy()
 
 
 def hyperlink_of_bmi():
@@ -56,7 +56,7 @@ def after_login():
   screen6.geometry("900x550")  # syntax:- width x height // this will set default width and height
   screen6.minsize(900, 550)
   screen6.maxsize(900, 550)
-  screen6.configure(bg="#a8a8a8")
+  screen6.configure(bg="#393939")
   screen6.title("Body Mass Index Calculator")
 
   # main frame inside the main window
@@ -102,12 +102,17 @@ def after_login():
 
   def getvals():  # defining a function to calculate bmi
       bmicalc = round(float(weight_entry.get())/(float(height_entry.get())*float(height_entry.get()))*10000, 2)
+      bmiresult = StringVar()
       if bmicalc < 18.5:
-          bmiresult = f"Your BMI is {bmicalc} and \nYou are UNDERWEIGHT."
-      elif bmicalc >= 18.5 and bmicalc < 24.9:
-          bmiresult = f"Your BMI is {bmicalc} and \nYou are NORMAL."
-      elif bmicalc > 24.9:
-          bmiresult = f"Your BMI is {bmicalc} and \nYou are OVERWEIGHT."
+        bmiresult = f"Your BMI is {bmicalc} and \nYou are UNDERWEIGHT."
+      elif bmicalc >= 18.5 and bmicalc <= 24.9:
+        bmiresult = f"Your BMI is {bmicalc} and \nYou are NORMAL."
+      elif bmicalc > 24.9 and bmicalc <= 30.0:
+        bmiresult = f"Your BMI is {bmicalc} and \nYou are OVERWEIGHT."
+      elif bmicalc > 30.0 and bmicalc <= 40.0:
+        bmiresult = f"Your BMI is {bmicalc} and \nYou are OBESE."
+      elif bmicalc > 40.0:
+        bmiresult = f"Your BMI is {bmicalc} and \nYou have severe OBESITY"
       bmi.set(bmiresult)
 
 
@@ -120,7 +125,7 @@ def after_login():
   btn.pack(side=TOP, anchor=S, pady=20, ipadx=30, ipady=20)
 
   
-  anslabel = Label(f4, bg="#191919", fg="white", textvariable=bmi, font="montserrat 13 bold")
+  anslabel = Label(f4, bg="#191919", fg="white", textvariable=bmi, font="montserrat 13 bold")  #191919
   anslabel.pack(side=TOP, anchor=S, ipadx=30, ipady=35)
 
 def password_not_recognised():
@@ -141,10 +146,10 @@ def register_user():
   password_info = password.get()
 
   username_info_hash = hashlib.sha256(username_info.encode())
-  username_info_hash_done = username_info_hash.hexdigest()
+  username_info_hash_done = str(username_info_hash.hexdigest())
 
   password_info_hash = hashlib.sha256(password_info.encode())
-  password_info_hash_done = password_info_hash.hexdigest()
+  password_info_hash_done = str(password_info_hash.hexdigest())
 
   
   # file = askopenfile(mode='a', filetypes=[('Text Files', '*.txt')])
@@ -179,10 +184,10 @@ def login_verify():
   password1 = password_verify.get()
 
   verify_user_hash = hashlib.sha256(username1.encode())
-  verify_user_hash_done = verify_user_hash.hexdigest()
+  verify_user_hash_done = str(verify_user_hash.hexdigest())
 
   verify_pwd_hash = hashlib.sha256(password1.encode())
-  verify_pwd_hash_done = verify_pwd_hash.hexdigest()
+  verify_pwd_hash_done = str(verify_pwd_hash.hexdigest())
 
   username_entry1.delete(0, END)
   password_entry1.delete(0, END)
@@ -210,6 +215,7 @@ def login_verify():
       file.close()
   else:
     print("file not found")
+    messagebox.showerror("Error", "File not found.")
 
   
   
